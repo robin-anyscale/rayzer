@@ -70,7 +70,7 @@ if [[ "$1" == "--run" ]]; then
     # Check if we're in an interactive terminal
     if [ -t 0 ]; then
         # Interactive terminal, run normally
-        rayzer
+        $INSTALL_DIR/repo/rayzer
     else
         # Non-interactive terminal, show alternative instructions
         echo "Note: For the best experience, Rayzer should be run in an interactive terminal."
