@@ -5,7 +5,7 @@ import subprocess
 import atexit
 import time
 import sys
-
+import os
 app = typer.Typer()
 
 @app.command()
@@ -58,6 +58,7 @@ def handle_option(choice: str):
                 "init Ray Job",
                 "Example: Train a xgboost model",
                 "Example: Train a pytorch model",
+                "Go Back"
             ]
         ).ask()
 
@@ -67,19 +68,29 @@ def handle_option(choice: str):
             print("Training a xgboost model...")
         elif job_type == "Example: Train a pytorch model":
             print("Training a pytorch model...")
+        elif job_type == "Go Back":
+            return app()
 
     elif choice == "Launch a new service":
         service_type = questionary.select(  
             "What type of service would you like to create?",
             choices=[
-                "Example: Train a xgboost model",
-                "Example: Train a pytorch model",
+                "Example: Run inference on a pytorch model",
+                "Example: Run inference on a xgboost model",
+                "Go Back"
             ]
         ).ask()
-        if service_type == "Example: Train a xgboost model":
-            print("Training a xgboost model...")
-        elif service_type == "Example: Train a pytorch model":
-            print("Training a pytorch model...")
+        if service_type == "Example: Run inference on a xgboost model":
+            print("Downloading example xgboost model...")
+            subprocess.run(["cp /Users/robin/.rayzer/repo/ray_ws/load_test.py /Users/robin/source/anyscale/rayzer/workspace "], check=True)
+            subprocess.run(["cp /Users/robin/.rayzer/repo/ray_ws/serve_app.py /Users/robin/source/anyscale/rayzer/workspace "], check=True)
+            return app()
+            # print("Running inference on a xgboost model...")
+
+        elif service_type == "Example: Run inference on a pytorch model":
+            print("Running inference on a pytorch model...")
+        elif service_type == "Go Back":
+            return app()
 
     elif choice == "Launch a Ray Cluster":
         cluster_type = questionary.select(
@@ -87,7 +98,8 @@ def handle_option(choice: str):
             choices=[
                 "Deploy a Ray Cluster locally",
                 "Deploy a Ray Cluster on AWS",
-                "Deploy a managed Ray Cluster on Anyscale"
+                "Deploy a managed Ray Cluster on Anyscale",
+                "Go Back"
             ]
         ).ask()
         
@@ -126,8 +138,15 @@ def handle_option(choice: str):
         elif cluster_type == "Deploy a managed Ray Cluster on Anyscale":
             print(f"Setting up Ray cluster on Anyscale...")
             print(f"This will take a few minutes and open a few browser windows.")
-            subprocess.run(["bash", "ray_infra_anyscale.sh"], check=True)
-            print("Ray cluster on Anyscale launched successfully!")
+            anyscale_token = questionary.text(
+                "Please enter your Anyscale CLI token:").ask()
+            os.environ["ANYSCALE_CLI_TOKEN"] = anyscale_token
+            subprocess.run(["anyscale login"], check=True)
+            return app()
+
+        elif cluster_type == "Go Back":
+            return app()
+            
 
     elif choice == "ColdStart":
         print(f"Running ColdStart...")

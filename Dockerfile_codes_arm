@@ -1,13 +1,11 @@
-FROM rayproject/ray:2.44.0.f468b3-py312-gpu
-# FROM rayproject/ray:2.41.0-py39-aarch64
+# FROM rayproject/ray:latest
+FROM rayproject/ray:2.44.0.f468b3-py311-aarch64
 
 
 # # Install code-server
 RUN sudo apt-get update && sudo apt-get install -y curl
-RUN curl -fOL https://github.com/coder/code-server/releases/download/v4.98.0/code-server_4.98.0_amd64.deb
-RUN sudo dpkg -i code-server_4.98.0_amd64.deb
-
-RUN pip install xgboost 
+RUN curl -fOL https://github.com/coder/code-server/releases/download/v4.98.0/code-server_4.98.0_arm64.deb
+RUN sudo dpkg -i code-server_4.98.0_arm64.deb
 # Configure code-server to listen on all interfaces
 # RUN mkdir -p /home/ray/.config/code-server
 # COPY coder_config.yaml /home/ray/.config/code-server/config.yaml

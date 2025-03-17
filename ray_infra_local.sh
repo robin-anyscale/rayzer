@@ -12,6 +12,11 @@ cleanup() {
 trap cleanup EXIT
 
 
+# echo "Installing Prometheus stack..."
+# /Users/robin/source/anyscale/kuberay/install/prometheus/install.sh
+
+sleep 5
+
 # Apply Ray cluster configuration
 echo "Applying Ray cluster configuration..."
 kubectl apply -f ray-cluster-autoscaler.yaml
@@ -40,8 +45,7 @@ GRAFANA_PORT_FORWARD_PID=$!
 
 # sleep 1
 
-echo "Installing Prometheus stack..."
-/Users/robin/source/anyscale/kuberay/install/prometheus/install.sh
+
 
 # sleep 1
 

@@ -4,5 +4,5 @@ nodes:
 - role: control-plane
   image: kindest/node:v1.26.0
   extraMounts:
-  - hostPath: /Users/robin/source/anyscale/rayzer/ray_ws
+  - hostPath: /Users/robin/source/anyscale/rayzer/workspace
     containerPath: /fast_ray

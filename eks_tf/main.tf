@@ -57,7 +57,7 @@ module "eks" {
       
       block_device_mappings = {
         xvda = {
-          device_name = "/dev/xvda"
+          device_name = "/dev/xvdb"
           ebs = {
             volume_size           = 500
             volume_type           = "gp3"

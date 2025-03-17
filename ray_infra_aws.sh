@@ -18,16 +18,13 @@ trap cleanup EXIT
 
 # Update kubeconfig for AWS EKS cluster
 echo "Updating kubeconfig for AWS EKS cluster..."
-aws eks update-kubeconfig --region us-west-2 --name ray-cluster-robin
+aws eks update-kubeconfig --region us-west-2 --name ray-cluster-robin-2
 
 
 ECR_PASSWORD=$(aws ecr get-login-password --region us-west-2)
 
 
-kubectl create secret docker-registry ecr-secret \                                                     
-    --docker-server=959243851260.dkr.ecr.us-west-2.amazonaws.com \
-    --docker-username=AWS \
-    --docker-password="$ECR_PASSWORD"
+kubectl create secret docker-registry ecr-secret --docker-server=959243851260.dkr.ecr.us-west-2.amazonaws.com  --docker-username=AWS --docker-password="$ECR_PASSWORD"
 
 helm install kuberay-operator kuberay/kuberay-operator
 
