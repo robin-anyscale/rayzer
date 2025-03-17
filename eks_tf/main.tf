@@ -25,7 +25,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
 
-  cluster_name    = "ray-cluster-robin"
+  cluster_name    = "ray-cluster-robin-2"
   cluster_version = "1.32"
 
   vpc_id     = module.vpc.vpc_id
