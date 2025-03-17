@@ -1,21 +1,70 @@
 #!/bin/bash
 set -e
 
-echo "Installing your Python application..."
+echo "Installing Rayzer CLI..."
 
 # Create a directory for the application
-mkdir -p ~/.myapp
+INSTALL_DIR="$HOME/.rayzer"
+mkdir -p "$INSTALL_DIR"
 
-# Download the application files
-curl -s https://your-domain.com/main.py -o ~/.myapp/main.py
+# Install uv if not already installed
+if ! command -v uv &> /dev/null; then
+    echo "Installing uv package manager..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+    # Add uv to PATH for this session
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
 
-# Install dependencies
-pip install -r https://your-domain.com/requirements.txt
+# Check if repo directory already exists
+if [ -d "$INSTALL_DIR/repo" ]; then
+    echo "Repository already exists, updating..."
+    cd "$INSTALL_DIR/repo"
+    git pull
+else
+    echo "Cloning repository..."
+    git clone git@github.com:robin-anyscale/rayzer.git "$INSTALL_DIR/repo"
+    cd "$INSTALL_DIR/repo"
+fi
 
-# Make the script executable
-chmod +x ~/.myapp/main.py
+# Install the project and its dependencies using uv
+# echo "Installing project and dependencies..."
+# uv pip install -e .
+
+# Add typer and questionary if they're not already in pyproject.toml
+uv pip install typer questionary
+
+# Make scripts executable
+chmod +x "$INSTALL_DIR/repo/ray_infra_local.sh"
+chmod +x "$INSTALL_DIR/repo/ray_infra_aws.sh"
+# chmod +x "$INSTALL_DIR/repo/ray_infra_anyscale.sh"
+
+# Create a launcher script
+cat > "$INSTALL_DIR/repo/rayzer" << EOF
+#!/bin/bash
+# Use the Python from the uv environment
+$(which python) "$INSTALL_DIR/repo/main.py" rayzer "\$@"
+EOF
+
+chmod +x "$INSTALL_DIR/repo/rayzer"
 
 # Create a symlink to make it available in PATH
-ln -sf ~/.myapp/main.py /usr/local/bin/myapp
+mkdir -p "$HOME/.local/bin"
+ln -sf "$INSTALL_DIR/repo/rayzer" "$HOME/.local/bin/rayzer"
 
-echo "Installation complete! Run 'myapp' to start the application."
+echo "Installation complete!"
+echo "Run 'rayzer' to start the application."
+
+# Check if ~/.local/bin is in PATH, if not provide instructions
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+    echo "" 
+    echo "NOTE: Please add ~/.local/bin to your PATH to run rayzer from anywhere:"
+    echo "  export PATH=\"\$HOME/.local/bin:\$PATH\""
+    echo "You can add this line to your ~/.bashrc or ~/.zshrc file to make it permanent."
+fi
+
+# Run the application if --run flag is provided
+if [[ "$1" == "--run" ]]; then
+    echo ""
+    echo "Starting Rayzer CLI..."
+    "$INSTALL_DIR/repo/rayzer"
+fi
