@@ -62,21 +62,22 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo "You can add this line to your ~/.bashrc or ~/.zshrc file to make it permanent."
 fi
 
-# Run the application if --run flag is provided
-if [[ "$1" == "--run" ]]; then
-    echo ""
-    echo "Starting Rayzer CLI..."
-    rayzer
-    # # Check if we're in an interactive terminal
-    # if [ -t 0 ]; then
-    #     # Interactive terminal, run normally
-    #     "$INSTALL_DIR/repo/rayzer"
-    # else
-    #     # Non-interactive terminal, show instructions instead
-    #     echo "The Rayzer CLI requires an interactive terminal."
-    #     echo "Please run 'rayzer' manually after installation."
-    #     echo ""
-    #     echo "To run Rayzer, open a new terminal and type:"
-    #     echo "rayzer"
-    # fi
-fi
+rayzer 
+# # Run the application if --run flag is provided
+# if [[ "$1" == "--run" ]]; then
+#     echo ""
+#     echo "Starting Rayzer CLI..."
+#     rayzer
+#     # # Check if we're in an interactive terminal
+#     # if [ -t 0 ]; then
+#     #     # Interactive terminal, run normally
+#     #     "$INSTALL_DIR/repo/rayzer"
+#     # else
+#     #     # Non-interactive terminal, show instructions instead
+#     #     echo "The Rayzer CLI requires an interactive terminal."
+#     #     echo "Please run 'rayzer' manually after installation."
+#     #     echo ""
+#     #     echo "To run Rayzer, open a new terminal and type:"
+#     #     echo "rayzer"
+#     # fi
+# fi
