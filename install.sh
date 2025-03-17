@@ -66,7 +66,22 @@ fi
 if [[ "$1" == "--run" ]]; then
     echo ""
     echo "Starting Rayzer CLI..."
-    rayzer
+    
+    # Check if we're in an interactive terminal
+    if [ -t 0 ]; then
+        # Interactive terminal, run normally
+        rayzer
+    else
+        # Non-interactive terminal, show alternative instructions
+        echo "Note: For the best experience, Rayzer should be run in an interactive terminal."
+        echo "The CLI will attempt to run, but you may see warnings about 'Input is not a terminal'."
+        echo ""
+        echo "For a fully interactive experience, run this command in a regular terminal after installation:"
+        echo "  rayzer"
+        echo ""
+        # Still try to run it, as it partially works
+        rayzer
+    fi
 else
     echo ""
     echo "To start Rayzer now, run: rayzer"
