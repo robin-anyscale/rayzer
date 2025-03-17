@@ -66,17 +66,17 @@ fi
 if [[ "$1" == "--run" ]]; then
     echo ""
     echo "Starting Rayzer CLI..."
-    
-    # Check if we're in an interactive terminal
-    if [ -t 0 ]; then
-        # Interactive terminal, run normally
-        "$INSTALL_DIR/repo/rayzer"
-    else
-        # Non-interactive terminal, show instructions instead
-        echo "The Rayzer CLI requires an interactive terminal."
-        echo "Please run 'rayzer' manually after installation."
-        echo ""
-        echo "To run Rayzer, open a new terminal and type:"
-        echo "rayzer"
-    fi
+    rayzer
+    # # Check if we're in an interactive terminal
+    # if [ -t 0 ]; then
+    #     # Interactive terminal, run normally
+    #     "$INSTALL_DIR/repo/rayzer"
+    # else
+    #     # Non-interactive terminal, show instructions instead
+    #     echo "The Rayzer CLI requires an interactive terminal."
+    #     echo "Please run 'rayzer' manually after installation."
+    #     echo ""
+    #     echo "To run Rayzer, open a new terminal and type:"
+    #     echo "rayzer"
+    # fi
 fi

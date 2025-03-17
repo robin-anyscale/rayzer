@@ -31,7 +31,7 @@ def rayzer(
 ╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝╚═╝  ╚═╝
 """ + "\033[0m")
 
-    handle_option("ColdStart")
+    # handle_option("ColdStart")
         
 
     # Otherwise, show the interactive menu
