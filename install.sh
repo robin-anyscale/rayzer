@@ -62,7 +62,15 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo "You can add this line to your ~/.bashrc or ~/.zshrc file to make it permanent."
 fi
 
-rayzer 
+# Run the application if --run flag is provided
+if [[ "$1" == "--run" ]]; then
+    echo ""
+    echo "Starting Rayzer CLI..."
+    rayzer
+else
+    echo ""
+    echo "To start Rayzer now, run: rayzer"
+fi
 # # Run the application if --run flag is provided
 # if [[ "$1" == "--run" ]]; then
 #     echo ""
