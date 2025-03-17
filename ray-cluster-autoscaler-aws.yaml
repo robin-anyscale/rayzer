@@ -60,7 +60,7 @@ spec:
         containers:
         # The Ray head container
         - name: ray-head
-          image: 959243851260.dkr.ecr.us-west-2.amazonaws.com/ray-code-robin:latest
+          image: 959243851260.dkr.ecr.us-west-2.amazonaws.com/ray-code-robin:v0.0-gpu
           # imagePullPolicy: Never
           imagePullPolicy: Always
           ports:
@@ -104,9 +104,11 @@ spec:
                     
           resources:
             limits:
+              nvidia.com/gpu: 1
               cpu: "3"
               memory: "4G"
             requests:
+              nvidia.com/gpu: 1
               cpu: "3"
               memory: "4G"
           volumeMounts:
@@ -168,7 +170,7 @@ spec:
         containers:
         - name: ray-worker
           # image: rayproject/ray:2.41.0
-          image: 959243851260.dkr.ecr.us-west-2.amazonaws.com/ray-code-robin:latest
+          image: 959243851260.dkr.ecr.us-west-2.amazonaws.com/ray-code-robin:v0.0-gpu
           imagePullPolicy: Always ## added to avoid pulling the image from the registry
           # imagePullPolicy: IfNotPresent ## added to avoid pulling the image from the registry
           volumeMounts:
@@ -176,9 +178,11 @@ spec:
               name: ray-logs
           resources:
             limits:
+              nvidia.com/gpu: 1
               cpu: "3"
               memory: "6G"
             requests:
+              nvidia.com/gpu: 1
               cpu: "3"
               memory: "6G"
         volumes:

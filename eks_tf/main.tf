@@ -35,13 +35,36 @@ module "eks" {
   cluster_endpoint_private_access = true
 
   eks_managed_node_groups = {
-    ray_cpu = {
-      min_size     = 1
+    # ray_cpu = {
+    #   min_size     = 2
+    #   max_size     = 5
+    #   desired_size = 2
+
+    #   instance_types = ["g5.4xlarge"]
+    #   capacity_type  = "ON_DEMAND"
+    #   ami_type       = "BOTTLEROCKET_x86_64_NVIDIA"
+    # }
+    ray_gpu = {
+      min_size     = 2
       max_size     = 5
       desired_size = 2
 
       instance_types = ["g5.2xlarge"]
       capacity_type  = "ON_DEMAND"
+      disk_size      = 500
+      # Use the GPU-optimized AMI
+      ami_type       = "BOTTLEROCKET_x86_64_NVIDIA"  # Amazon Linux 2 with GPU support
+      
+      block_device_mappings = {
+        xvda = {
+          device_name = "/dev/xvda"
+          ebs = {
+            volume_size           = 500
+            volume_type           = "gp3"
+            delete_on_termination = true
+          }
+        }
+      }
     }
   }
 

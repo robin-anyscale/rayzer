@@ -1,0 +1,29 @@
+FROM rayproject/ray:2.44.0.f468b3-py312-gpu
+# FROM rayproject/ray:2.41.0-py39-aarch64
+
+
+# # Install code-server
+RUN sudo apt-get update && sudo apt-get install -y curl
+RUN curl -fOL https://github.com/coder/code-server/releases/download/v4.98.0/code-server_4.98.0_amd64.deb
+RUN sudo dpkg -i code-server_4.98.0_amd64.deb
+# Configure code-server to listen on all interfaces
+# RUN mkdir -p /home/ray/.config/code-server
+# COPY coder_config.yaml /home/ray/.config/code-server/config.yaml
+# RUN echo "bind-addr: 0.0.0.0:8080\nauth: password\npassword: codeserver_password\ncert: false" > /home/ray/.config/code-server/config.yaml
+# RUN sudo chown -R ray:ray /home/ray/.config
+# RUN sudo chmod +x /home/ray/.config
+
+# Expose SSH port, Ray dashboard, Ray client port, and code-server port
+# EXPOSE 22 8265 10001 8080
+
+# COPY start.sh /start.sh
+# RUN sudo chmod +x /start.sh
+
+# Replace the original entrypoint with our script
+# ENTRYPOINT ["code-server --bind-addr 0.0.0.0:9999 --cert false --auth none"]
+
+
+# Start SSH server with Ray
+# CMD ["/bin/bash", "-c", "sudo service ssh start && tail -f /dev/null"]
+# CMD ["/bin/bash", "-c", "service ssh start && tail -f /dev/null"]
+# ENTRYPOINT ["/bin/bash", "-c", "sudo service ssh start && tail -f /dev/null"]
