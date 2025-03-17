@@ -82,8 +82,8 @@ def handle_option(choice: str):
         ).ask()
         if service_type == "Example: Run inference on a xgboost model":
             print("Downloading example xgboost model...")
-            subprocess.run(["cp /Users/robin/.rayzer/repo/ray_ws/load_test.py /Users/robin/source/anyscale/rayzer/workspace "], check=True)
-            subprocess.run(["cp /Users/robin/.rayzer/repo/ray_ws/serve_app.py /Users/robin/source/anyscale/rayzer/workspace "], check=True)
+            subprocess.run(["cp /Users/robin/.rayzer/repo/ray_ws/load_test.py /Users/robin/source/anyscale/rayzer/workspace"], check=True)
+            subprocess.run(["cp /Users/robin/.rayzer/repo/ray_ws/serve_app.py /Users/robin/source/anyscale/rayzer/workspace"], check=True)
             return app()
             # print("Running inference on a xgboost model...")
 
