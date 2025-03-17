@@ -59,11 +59,11 @@ export default function Home() {
                   </div>
                   <div className="p-4 overflow-x-auto">
                     <pre className="text-sm md:text-base text-zinc-100 font-mono">
-                      <code>curl -sSL https://raw.githubusercontent.com/robin-anyscale/rayzer/main/install.sh | bash -s -- --run</code>
+                      <code>curl -sSL https://raw.githubusercontent.com/robin-anyscale/rayzer/main/install.sh | bash -s --</code>
                     </pre>
                   </div>
                 </div>
-                <CopyButton text="curl -sSL https://raw.githubusercontent.com/robin-anyscale/rayzer/main/install.sh | bash -s -- --run" className="absolute right-4 top-1/2 mt-2" />
+                <CopyButton text="curl -sSL https://raw.githubusercontent.com/robin-anyscale/rayzer/main/install.sh | bash -s --" className="absolute right-4 top-1/2 mt-2" />
               </div>
               <div className="flex flex-col sm:flex-row gap-4 mt-6">
                 <Button className="gap-1">

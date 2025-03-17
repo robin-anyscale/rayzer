@@ -5,7 +5,7 @@
 cleanup() {
     echo "Cleaning up..."
     kill $PORT_FORWARD_PID 2>/dev/null
-    kubectl delete -f ray-cluster-autoscaler-aws.yaml
+    # kubectl delete -f ray-cluster-autoscaler-aws.yaml
     kubectl delete -f ray-cluster-autoscaler.yaml
 }
 
@@ -15,22 +15,23 @@ trap cleanup EXIT
 # terraform apply
 # terraform apply
 
+sleep 1
 
 # Update kubeconfig for AWS EKS cluster
 echo "Updating kubeconfig for AWS EKS cluster..."
-aws eks update-kubeconfig --region us-west-2 --name ray-cluster-robin-2
+aws eks update-kubeconfig --region us-west-2 --name ray-cluster-robin
 
 
-ECR_PASSWORD=$(aws ecr get-login-password --region us-west-2)
+# ECR_PASSWORD=$(aws ecr get-login-password --region us-west-2)
 
 
-kubectl create secret docker-registry ecr-secret --docker-server=959243851260.dkr.ecr.us-west-2.amazonaws.com  --docker-username=AWS --docker-password="$ECR_PASSWORD"
+# kubectl create secret docker-registry ecr-secret --docker-server=959243851260.dkr.ecr.us-west-2.amazonaws.com  --docker-username=AWS --docker-password="$ECR_PASSWORD"
 
-helm install kuberay-operator kuberay/kuberay-operator
+# helm install kuberay-operator kuberay/kuberay-operator
 
 # Apply Ray cluster configuration
 echo "Applying Ray cluster configuration..."
-kubectl apply -f ray-cluster-autoscaler-aws.yaml
+# kubectl apply -f ray-cluster-autoscaler-aws.yaml
 
 # sleep 1   
 

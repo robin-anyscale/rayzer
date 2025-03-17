@@ -25,7 +25,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
 
-  cluster_name    = "ray-cluster-robin-2"
+  cluster_name    = "ray-cluster-robin"
   cluster_version = "1.32"
 
   vpc_id     = module.vpc.vpc_id
@@ -45,9 +45,9 @@ module "eks" {
     #   ami_type       = "BOTTLEROCKET_x86_64_NVIDIA"
     # }
     ray_gpu = {
-      min_size     = 2
-      max_size     = 5
-      desired_size = 2
+      min_size     = 4
+      max_size     = 8
+      desired_size = 4
 
       instance_types = ["g5.2xlarge"]
       capacity_type  = "ON_DEMAND"
